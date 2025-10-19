@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#7c3aed">
+    <title>Projects - Micro Habits</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            min-height: 100vh;
+            padding: 20px 20px 90px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .add-project-btn {
+            width: 100%;
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
+        }
+
+        .add-project-btn:active {
+            transform: scale(0.98);
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .project-date {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .project-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-paused {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .project-habits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .habit-tag {
+            padding: 4px 10px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #374151;
+        }
+
+        .project-progress {
+            margin-top: 16px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .progress-percentage {
+            font-size: 12px;
+            font-weight: 600;
+            color: #7c3aed;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #a78bfa);
+            transition: width 0.3s;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-btn {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .view-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .edit-btn {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        .edit-btn:hover {
+            background: #ddd6fe;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: #9ca3af;
+            transition: color 0.2s;
+            flex: 1;
+            padding: 8px;
+        }
+
+        .nav-item:hover {
+            color: #7c3aed;
+        }
+
+        .nav-item.active {
+            color: #7c3aed;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Projects</h1>
+            <p class="subtitle">Group habits into meaningful goals</p>
+        </div>
+
+        <button class="add-project-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Create New Project
+        </button>
+
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <div class="project-title">Health & Wellness</div>
+                    <div class="project-date">Started Oct 1, 2025</div>
+                </div>
+                <span class="project-status status-active">Active</span>
+            </div>
+            
+            <div class="project-description">
+                Focus on building a healthier lifestyle through consistent daily habits
+            </div>
+
+            <div class="project-habits">
+                <span class="habit-tag">🧘 Morning meditation</span>
+                <span class="habit-tag">💧 Drink water</span>
+                <span class="habit-tag">🏃 Exercise</span>
+            </div>
+
+            <div class="project-progress">
+                <div class="progress-header">
+                    <span class="progress-label">Overall Progress</span>
+                    <span class="progress-percentage">68%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 68%;"></div>
+                </div>
+            </div>
+
+            <div class="project-actions">
+                <button class="action-btn view-btn">View Details</button>
+                <button class="action-btn edit-btn">Edit</button>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <div class="project-title">Learn Spanish</div>
+                    <div class="project-date">Started Sep 15, 2025</div>
+                </div>
+                <span class="project-status status-active">Active</span>
+            </div>
+            
+            <div class="project-description">
+                Achieve conversational fluency through daily practice and immersion
+            </div>
+
+            <div class="project-habits">
+                <span class="habit-tag">📚 Study vocabulary</span>
+                <span class="habit-tag">🎧 Listen to podcasts</span>
+                <span class="habit-tag">✍️ Practice writing</span>
+            </div>
+
+            <div class="project-progress">
+                <div class="progress-header">
+                    <span class="progress-label">Overall Progress</span>
+                    <span class="progress-percentage">82%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 82%;"></div>
+                </div>
+            </div>
+
+            <div class="project-actions">
+                <button class="action-btn view-btn">View Details</button>
+                <button class="action-btn edit-btn">Edit</button>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-header">
+                <div>
+                    <div class="project-title">Morning Routine</div>
+                    <div class="project-date">Completed Oct 15, 2025</div>
+                </div>
+                <span class="project-status status-completed">Completed</span>
+            </div>
+            
+            <div class="project-description">
+                Establish a consistent morning routine to start each day with intention
+            </div>
+
+            <div class="project-habits">
+                <span class="habit-tag">☀️ Wake up at 6am</span>
+                <span class="habit-tag">📖 Read</span>
+                <span class="habit-tag">📝 Journal</span>
+            </div>
+
+            <div class="project-progress">
+                <div class="progress-header">
+                    <span class="progress-label">Overall Progress</span>
+                    <span class="progress-percentage">100%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="project-actions">
+                <button class="action-btn view-btn">View Details</button>
+                <button class="action-btn edit-btn">Archive</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span class="nav-label">Home</span>
+            </a>
+
+            <a href="habits.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 11 12 14 22 4"></polyline>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+                <span class="nav-label">Habits</span>
+            </a>
+
+            <a href="calendar.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span class="nav-label">Calendar</span>
+            </a>
+
+            <a href="metrics.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="20" x2="12" y2="10"></line>
+                    <line x1="18" y1="20" x2="18" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="16"></line>
+                </svg>
+                <span class="nav-label">Metrics</span>
+            </a>
+
+            <a href="projects.html" class="nav-item active">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span class="nav-label">Projects</span>
+            </a>
+        </div>
+    </nav>
+</body>
+</html>
