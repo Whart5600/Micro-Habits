@@ -68,10 +68,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .stat-card.large {
-            grid-column: span 2;
-        }
-
         .stat-number {
             font-size: 32px;
             font-weight: 700;
@@ -82,15 +78,6 @@
         .stat-label {
             font-size: 14px;
             color: #6b7280;
-            margin-bottom: 8px;
-        }
-
-        .stat-trend {
-            font-size: 12px;
-            color: #10b981;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
 
         .today-section {
@@ -117,6 +104,11 @@
             border-radius: 8px;
             margin-bottom: 8px;
             cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .habit-item:hover {
+            background: #f3f4f6;
         }
 
         .habit-checkbox {
@@ -126,6 +118,11 @@
             border: 2px solid #d1d5db;
             background: white;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
         }
 
         .habit-checkbox.checked {
@@ -133,9 +130,17 @@
             border-color: #22c55e;
         }
 
+        .habit-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         .habit-text {
             font-size: 14px;
             color: #374151;
+            flex: 1;
         }
 
         /* Habits Page Styles */
@@ -155,6 +160,12 @@
             justify-content: center;
             gap: 8px;
             box-shadow: 0 4px 6px rgba(124, 58, 237, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .add-habit-btn:hover, .add-project-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(124, 58, 237, 0.3);
         }
 
         .add-habit-btn:active, .add-project-btn:active {
@@ -196,6 +207,10 @@
             transition: all 0.2s;
         }
 
+        .check-btn:hover {
+            transform: scale(1.1);
+        }
+
         .habit-card.completed .check-btn {
             background: #22c55e;
             border-color: #22c55e;
@@ -203,6 +218,7 @@
 
         .check-icon {
             opacity: 0;
+            transition: opacity 0.2s;
         }
 
         .habit-card.completed .check-icon {
@@ -223,20 +239,54 @@
         .streak-info {
             font-size: 14px;
             color: #6b7280;
+            cursor: pointer;
         }
 
-        .delete-btn {
+        .streak-info:hover {
+            color: #7c3aed;
+            text-decoration: underline;
+        }
+
+        .habit-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .edit-btn, .delete-btn {
             width: 36px;
             height: 36px;
             border-radius: 8px;
             border: none;
-            background: #fee2e2;
-            color: #ef4444;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .edit-btn {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+
+        .edit-btn:hover {
+            background: #c7d2fe;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .delete-btn:hover {
+            background: #fecaca;
+        }
+
+        .habit-details-extra {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 2px;
         }
 
         /* Calendar Page Styles */
@@ -276,6 +326,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #e5e7eb;
+            transform: scale(1.1);
         }
 
         .calendar-grid {
@@ -301,6 +357,7 @@
             font-size: 14px;
             cursor: pointer;
             transition: all 0.2s;
+            position: relative;
         }
 
         .day-cell.empty {
@@ -324,8 +381,9 @@
             color: #92400e;
         }
 
-        .day-cell:not(.empty):not(.today):hover {
-            background: #f3f4f6;
+        .day-cell:not(.empty):hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .legend {
@@ -366,6 +424,19 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-bottom: 20px;
+        }
+
+        .stat-card.large {
+            grid-column: span 2;
+        }
+
+        .stat-trend {
+            font-size: 12px;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
         }
 
         .chart-card {
@@ -493,6 +564,11 @@
             color: #065f46;
         }
 
+        .status-paused {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
         .project-description {
             font-size: 14px;
             color: #6b7280;
@@ -552,13 +628,22 @@
             background: #e5e7eb;
         }
 
-        .edit-btn {
+        .edit-btn-project {
             background: #ede9fe;
             color: #7c3aed;
         }
 
-        .edit-btn:hover {
+        .edit-btn-project:hover {
             background: #ddd6fe;
+        }
+
+        .delete-btn-project {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .delete-btn-project:hover {
+            background: #fecaca;
         }
 
         /* Bottom Navigation */
@@ -612,6 +697,207 @@
             font-size: 12px;
             font-weight: 500;
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-label.optional {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #7c3aed;
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        select.form-input {
+            cursor: pointer;
+        }
+
+        .days-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .day-checkbox {
+            display: none;
+        }
+
+        .days-selector .day-label {
+            padding: 10px 16px;
+            background: #f3f4f6;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .day-checkbox:checked + .day-label {
+            background: #7c3aed;
+            border-color: #7c3aed;
+            color: white;
+        }
+
+        .days-selector .day-label:hover {
+            background: #e5e7eb;
+        }
+
+        .day-checkbox:checked + .day-label:hover {
+            background: #6d28d9;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn-primary {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background: #6d28d9;
+        }
+
+        .modal-btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .day-details-modal {
+            max-width: 400px;
+        }
+
+        .habit-completion-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .completion-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .completion-indicator.completed {
+            background: #22c55e;
+        }
+
+        .completion-indicator.incomplete {
+            background: #ef4444;
+        }
+
+        .habit-completion-name {
+            font-size: 14px;
+            color: #374151;
+        }
+
+        #project-tasks-list .habit-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            padding: 0;
+            margin-bottom: 12px;
+        }
+
+        #project-tasks-list .form-input {
+            flex: 1;
+            margin: 0;
+        }
+
+        #project-tasks-list .delete-btn {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
@@ -623,24 +909,7 @@
                 <p class="subtitle">Track your progress and build lasting habits</p>
             </div>
 
-            <div class="quick-stats" id="home-stats">
-                <div class="stat-card">
-                    <div class="stat-number">5</div>
-                    <div class="stat-label">Active Habits</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">Day Streak</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">85%</div>
-                    <div class="stat-label">Completion Rate</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">Today's Progress</div>
-                </div>
-            </div>
+            <div class="quick-stats" id="home-stats"></div>
 
             <div class="today-section">
                 <h2 class="section-title">Today's Habits</h2>
@@ -675,14 +944,14 @@
 
             <div class="calendar-card">
                 <div class="calendar-header">
-                    <div class="month-year">October 2025</div>
+                    <div class="month-year" id="month-year"></div>
                     <div class="nav-buttons">
-                        <button class="nav-btn">
+                        <button class="nav-btn" id="prev-month">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </button>
-                        <button class="nav-btn">
+                        <button class="nav-btn" id="next-month">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
@@ -690,55 +959,7 @@
                     </div>
                 </div>
 
-                <div class="calendar-grid">
-                    <div class="day-label">Sun</div>
-                    <div class="day-label">Mon</div>
-                    <div class="day-label">Tue</div>
-                    <div class="day-label">Wed</div>
-                    <div class="day-label">Thu</div>
-                    <div class="day-label">Fri</div>
-                    <div class="day-label">Sat</div>
-
-                    <div class="day-cell empty"></div>
-                    <div class="day-cell empty"></div>
-                    <div class="day-cell">1</div>
-                    <div class="day-cell completed">2</div>
-                    <div class="day-cell completed">3</div>
-                    <div class="day-cell partial">4</div>
-                    <div class="day-cell completed">5</div>
-
-                    <div class="day-cell completed">6</div>
-                    <div class="day-cell completed">7</div>
-                    <div class="day-cell partial">8</div>
-                    <div class="day-cell completed">9</div>
-                    <div class="day-cell completed">10</div>
-                    <div class="day-cell completed">11</div>
-                    <div class="day-cell">12</div>
-
-                    <div class="day-cell completed">13</div>
-                    <div class="day-cell partial">14</div>
-                    <div class="day-cell completed">15</div>
-                    <div class="day-cell completed">16</div>
-                    <div class="day-cell completed">17</div>
-                    <div class="day-cell completed">18</div>
-                    <div class="day-cell today">19</div>
-
-                    <div class="day-cell">20</div>
-                    <div class="day-cell">21</div>
-                    <div class="day-cell">22</div>
-                    <div class="day-cell">23</div>
-                    <div class="day-cell">24</div>
-                    <div class="day-cell">25</div>
-                    <div class="day-cell">26</div>
-
-                    <div class="day-cell">27</div>
-                    <div class="day-cell">28</div>
-                    <div class="day-cell">29</div>
-                    <div class="day-cell">30</div>
-                    <div class="day-cell">31</div>
-                    <div class="day-cell empty"></div>
-                    <div class="day-cell empty"></div>
-                </div>
+                <div class="calendar-grid" id="calendar-grid"></div>
             </div>
 
             <div class="legend">
@@ -841,12 +1062,174 @@
         </div>
     </nav>
 
+    <!-- Edit Habit Modal -->
+    <div class="modal-overlay" id="edit-modal">
+        <div class="modal">
+            <div class="modal-header">Edit Habit</div>
+            
+            <div class="form-group">
+                <label class="form-label">Habit Name</label>
+                <input type="text" id="edit-name" class="form-input" placeholder="Enter habit name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label optional">Time (Optional)</label>
+                <input type="time" id="edit-time" class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Days</label>
+                <div class="days-selector">
+                    <input type="checkbox" id="day-mon" class="day-checkbox" value="Mon">
+                    <label for="day-mon" class="day-label">Mon</label>
+                    
+                    <input type="checkbox" id="day-tue" class="day-checkbox" value="Tue">
+                    <label for="day-tue" class="day-label">Tue</label>
+                    
+                    <input type="checkbox" id="day-wed" class="day-checkbox" value="Wed">
+                    <label for="day-wed" class="day-label">Wed</label>
+                    
+                    <input type="checkbox" id="day-thu" class="day-checkbox" value="Thu">
+                    <label for="day-thu" class="day-label">Thu</label>
+                    
+                    <input type="checkbox" id="day-fri" class="day-checkbox" value="Fri">
+                    <label for="day-fri" class="day-label">Fri</label>
+                    
+                    <input type="checkbox" id="day-sat" class="day-checkbox" value="Sat">
+                    <label for="day-sat" class="day-label">Sat</label>
+                    
+                    <input type="checkbox" id="day-sun" class="day-checkbox" value="Sun">
+                    <label for="day-sun" class="day-label">Sun</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label optional">Current Streak</label>
+                <input type="number" id="edit-streak" class="form-input" min="0" placeholder="0">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label optional">Start Date (Optional)</label>
+                <input type="date" id="edit-start-date" class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label optional">End Date (Optional)</label>
+                <input type="date" id="edit-end-date" class="form-input">
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-secondary" onclick="closeEditModal()">Cancel</button>
+                <button class="modal-btn modal-btn-primary" onclick="saveHabitEdit()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day Details Modal -->
+    <div class="modal-overlay" id="day-details-modal">
+        <div class="modal day-details-modal">
+            <div class="modal-header" id="day-details-header"></div>
+            <div id="day-details-content"></div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-secondary" onclick="closeDayDetailsModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Project Modal -->
+    <div class="modal-overlay" id="edit-project-modal">
+        <div class="modal">
+            <div class="modal-header">Edit Project</div>
+            
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <input type="text" id="edit-project-name" class="form-input" placeholder="Enter project name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea id="edit-project-description" class="form-input" rows="3" placeholder="Enter project description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label optional">Start Date (Optional)</label>
+                <input type="date" id="edit-project-start-date" class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label optional">End Date (Optional)</label>
+                <input type="date" id="edit-project-end-date" class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label optional">Time (Optional)</label>
+                <input type="time" id="edit-project-time" class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Project Status</label>
+                <select id="edit-project-status" class="form-input">
+                    <option value="active">Active</option>
+                    <option value="completed">Completed</option>
+                    <option value="paused">Paused</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Tasks/Habits</label>
+                <div id="project-tasks-list"></div>
+                <button type="button" onclick="addProjectTask()" style="width: 100%; padding: 12px; background: #f3f4f6; color: #374151; border: 2px dashed #d1d5db; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Add Task
+                </button>
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-secondary" onclick="closeEditProjectModal()">Cancel</button>
+                <button class="modal-btn modal-btn-primary" onclick="saveProjectEdit()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ========== DATA STORAGE (In-Memory) ==========
         let habits = [
-            { id: 1, name: 'Morning meditation', streak: 12, completed: false },
-            { id: 2, name: 'Drink 8 glasses of water', streak: 7, completed: true },
-            { id: 3, name: 'Read for 20 minutes', streak: 5, completed: false }
+            { 
+                id: 1, 
+                name: 'Morning meditation', 
+                streak: 12, 
+                completed: false,
+                time: '07:00',
+                days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                startDate: '2025-01-01',
+                endDate: '',
+                lastCompleted: null
+            },
+            { 
+                id: 2, 
+                name: 'Drink 8 glasses of water', 
+                streak: 7, 
+                completed: false,
+                time: '',
+                days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                startDate: '',
+                endDate: '',
+                lastCompleted: null
+            },
+            { 
+                id: 3, 
+                name: 'Read for 20 minutes', 
+                streak: 5, 
+                completed: false,
+                time: '20:00',
+                days: ['Mon', 'Wed', 'Fri', 'Sun'],
+                startDate: '2025-10-01',
+                endDate: '2025-12-31',
+                lastCompleted: null
+            }
         ];
 
         let projects = [
@@ -854,7 +1237,9 @@
                 id: 1,
                 name: 'Health & Wellness',
                 status: 'active',
-                startDate: 'Oct 1, 2025',
+                startDate: '2025-10-01',
+                endDate: '',
+                time: '07:00',
                 description: 'Focus on building a healthier lifestyle through consistent daily habits',
                 habits: ['🧘 Morning meditation', '💧 Drink water', '🏃 Exercise'],
                 progress: 68
@@ -863,7 +1248,9 @@
                 id: 2,
                 name: 'Learn Spanish',
                 status: 'active',
-                startDate: 'Sep 15, 2025',
+                startDate: '2025-09-15',
+                endDate: '2025-12-31',
+                time: '',
                 description: 'Achieve conversational fluency through daily practice and immersion',
                 habits: ['📚 Study vocabulary', '🎧 Listen to podcasts', '✍️ Practice writing'],
                 progress: 82
@@ -872,15 +1259,23 @@
                 id: 3,
                 name: 'Morning Routine',
                 status: 'completed',
-                startDate: 'Completed Oct 15, 2025',
+                startDate: '2025-09-01',
+                endDate: '2025-10-15',
+                time: '06:00',
                 description: 'Establish a consistent morning routine to start each day with intention',
                 habits: ['☀️ Wake up at 6am', '📖 Read', '📝 Journal'],
                 progress: 100
             }
         ];
 
+        // Calendar data: store completion history by date
+        let completionHistory = {};
+
         let habitIdCounter = 4;
         let projectIdCounter = 4;
+
+        // Current calendar date
+        let currentCalendarDate = new Date();
 
         // ========== NAVIGATION ==========
         const navItems = document.querySelectorAll('.nav-item');
@@ -905,8 +1300,6 @@
         function renderHomePage() {
             const activeHabits = habits.length;
             const completedToday = habits.filter(h => h.completed).length;
-            const completionRate = habits.length > 0 ? Math.round((completedToday / habits.length) * 100) : 0;
-            const maxStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak)) : 0;
 
             document.getElementById('home-stats').innerHTML = `
                 <div class="stat-card">
@@ -914,16 +1307,8 @@
                     <div class="stat-label">Active Habits</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">${maxStreak}</div>
-                    <div class="stat-label">Day Streak</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${completionRate}%</div>
-                    <div class="stat-label">Completion Rate</div>
-                </div>
-                <div class="stat-card">
                     <div class="stat-number">${completedToday}</div>
-                    <div class="stat-label">Today's Progress</div>
+                    <div class="stat-label">Completed Today</div>
                 </div>
             `;
 
@@ -938,17 +1323,38 @@
         function toggleHabitHome(id) {
             const habit = habits.find(h => h.id === id);
             if (habit) {
-                habit.completed = !habit.completed;
-                if (habit.completed) {
-                    habit.streak++;
+                const today = getTodayKey();
+                
+                if (!habit.completed) {
+                    // Mark as completed
+                    habit.completed = true;
+                    
+                    // Check if this is a new day (streak logic)
+                    if (habit.lastCompleted !== today) {
+                        habit.streak++;
+                        habit.lastCompleted = today;
+                    }
+                } else {
+                    // Mark as incomplete
+                    habit.completed = false;
                 }
+                
+                updateCompletionHistory();
                 renderAll();
             }
         }
 
         // ========== HABITS PAGE ==========
+        let currentEditingHabitId = null;
+
         function renderHabitsPage() {
-            document.getElementById('habits-list').innerHTML = habits.map(habit => `
+            document.getElementById('habits-list').innerHTML = habits.map(habit => {
+                const timeStr = habit.time ? `🕐 ${habit.time}` : '';
+                const daysStr = habit.days.length === 7 ? 'Every day' : habit.days.join(', ');
+                const dateRangeStr = habit.startDate || habit.endDate ? 
+                    `${habit.startDate ? new Date(habit.startDate).toLocaleDateString() : ''} - ${habit.endDate ? new Date(habit.endDate).toLocaleDateString() : 'Ongoing'}` : '';
+                
+                return `
                 <div class="habit-card ${habit.completed ? 'completed' : ''}">
                     <div class="check-btn" onclick="toggleHabit(${habit.id})">
                         <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
@@ -957,26 +1363,127 @@
                     </div>
                     <div class="habit-info">
                         <div class="habit-name">${habit.name}</div>
-                        <div class="streak-info">🔥 ${habit.streak} day streak</div>
+                        <div class="streak-info" onclick="event.stopPropagation(); editStreakDirect(${habit.id})" title="Click to edit streak">🔥 ${habit.streak} day streak</div>
+                        ${timeStr || daysStr ? `<div class="habit-details-extra">${timeStr} ${timeStr && daysStr ? '•' : ''} ${daysStr}</div>` : ''}
+                        ${dateRangeStr ? `<div class="habit-details-extra">📅 ${dateRangeStr}</div>` : ''}
                     </div>
-                    <button class="delete-btn" onclick="deleteHabit(${habit.id})">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                        </svg>
-                    </button>
+                    <div class="habit-actions">
+                        <button class="edit-btn" onclick="editHabit(${habit.id})" title="Edit habit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </button>
+                        <button class="delete-btn" onclick="deleteHabit(${habit.id})" title="Delete habit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         }
 
         function toggleHabit(id) {
             const habit = habits.find(h => h.id === id);
             if (habit) {
-                habit.completed = !habit.completed;
-                if (habit.completed) {
-                    habit.streak++;
+                const today = getTodayKey();
+                
+                if (!habit.completed) {
+                    habit.completed = true;
+                    if (habit.lastCompleted !== today) {
+                        habit.streak++;
+                        habit.lastCompleted = today;
+                    }
+                } else {
+                    habit.completed = false;
                 }
+                
+                updateCompletionHistory();
                 renderAll();
+            }
+        }
+
+        function editStreakDirect(id) {
+            const habit = habits.find(h => h.id === id);
+            if (habit) {
+                const newStreak = prompt(`Edit streak for "${habit.name}":`, habit.streak);
+                if (newStreak !== null) {
+                    const streakNum = parseInt(newStreak);
+                    if (!isNaN(streakNum) && streakNum >= 0) {
+                        habit.streak = streakNum;
+                        renderAll();
+                    } else {
+                        alert('Please enter a valid number');
+                    }
+                }
+            }
+        }
+
+        function openEditModal(habit) {
+            currentEditingHabitId = habit.id;
+            
+            document.getElementById('edit-name').value = habit.name;
+            document.getElementById('edit-time').value = habit.time || '';
+            document.getElementById('edit-streak').value = habit.streak;
+            document.getElementById('edit-start-date').value = habit.startDate || '';
+            document.getElementById('edit-end-date').value = habit.endDate || '';
+            
+            const dayCheckboxes = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+            dayCheckboxes.forEach(day => {
+                const dayName = day.charAt(0).toUpperCase() + day.slice(1);
+                document.getElementById(`day-${day}`).checked = habit.days.includes(dayName);
+            });
+            
+            document.getElementById('edit-modal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('edit-modal').classList.remove('active');
+            currentEditingHabitId = null;
+        }
+
+        function saveHabitEdit() {
+            const habit = habits.find(h => h.id === currentEditingHabitId);
+            if (!habit) return;
+            
+            const name = document.getElementById('edit-name').value.trim();
+            if (!name) {
+                alert('Please enter a habit name');
+                return;
+            }
+            
+            habit.name = name;
+            habit.time = document.getElementById('edit-time').value;
+            habit.streak = parseInt(document.getElementById('edit-streak').value) || 0;
+            habit.startDate = document.getElementById('edit-start-date').value;
+            habit.endDate = document.getElementById('edit-end-date').value;
+            
+            const selectedDays = [];
+            const dayCheckboxes = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+            dayCheckboxes.forEach(day => {
+                if (document.getElementById(`day-${day}`).checked) {
+                    selectedDays.push(day.charAt(0).toUpperCase() + day.slice(1));
+                }
+            });
+            
+            if (selectedDays.length === 0) {
+                alert('Please select at least one day');
+                return;
+            }
+            
+            habit.days = selectedDays;
+            
+            closeEditModal();
+            renderAll();
+        }
+
+        function editHabit(id) {
+            const habit = habits.find(h => h.id === id);
+            if (habit) {
+                openEditModal(habit);
             }
         }
 
@@ -990,17 +1497,160 @@
         function addNewHabit() {
             const name = prompt('Enter habit name:');
             if (name && name.trim()) {
-                habits.push({
+                const newHabit = {
                     id: habitIdCounter++,
                     name: name.trim(),
                     streak: 0,
-                    completed: false
-                });
+                    completed: false,
+                    time: '',
+                    days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    startDate: '',
+                    endDate: '',
+                    lastCompleted: null
+                };
+                habits.push(newHabit);
                 renderAll();
+                setTimeout(() => openEditModal(newHabit), 100);
             }
         }
 
         document.getElementById('add-habit-btn').addEventListener('click', addNewHabit);
+
+        document.getElementById('edit-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'edit-modal') {
+                closeEditModal();
+            }
+        });
+
+        // ========== CALENDAR PAGE ==========
+        function getTodayKey() {
+            const today = new Date();
+            return `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+        }
+
+        function getDateKey(year, month, day) {
+            return `${year}-${month}-${day}`;
+        }
+
+        function updateCompletionHistory() {
+            const todayKey = getTodayKey();
+            const completedCount = habits.filter(h => h.completed).length;
+            const totalHabits = habits.length;
+            
+            if (totalHabits > 0) {
+                const percentage = completedCount / totalHabits;
+                const habitData = habits.map(h => ({
+                    name: h.name,
+                    completed: h.completed
+                }));
+                
+                completionHistory[todayKey] = {
+                    status: percentage === 1 ? 'completed' : (percentage > 0 ? 'partial' : 'none'),
+                    completedCount: completedCount,
+                    totalHabits: totalHabits,
+                    habits: habitData
+                };
+            }
+        }
+
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('month-year').textContent = `${monthNames[month]} ${year}`;
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            const today = new Date();
+            const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+            const todayDate = today.getDate();
+            
+            let calendarHTML = `
+                <div class="day-label">Sun</div>
+                <div class="day-label">Mon</div>
+                <div class="day-label">Tue</div>
+                <div class="day-label">Wed</div>
+                <div class="day-label">Thu</div>
+                <div class="day-label">Fri</div>
+                <div class="day-label">Sat</div>
+            `;
+            
+            for (let i = 0; i < firstDay; i++) {
+                calendarHTML += '<div class="day-cell empty"></div>';
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateKey = getDateKey(year, month, day);
+                const dayData = completionHistory[dateKey];
+                const isToday = isCurrentMonth && day === todayDate;
+                
+                let classes = 'day-cell';
+                if (isToday) {
+                    classes += ' today';
+                } else if (dayData) {
+                    if (dayData.status === 'completed') {
+                        classes += ' completed';
+                    } else if (dayData.status === 'partial') {
+                        classes += ' partial';
+                    }
+                }
+                
+                calendarHTML += `<div class="${classes}" onclick="showDayDetails('${dateKey}', ${day}, ${month}, ${year})">${day}</div>`;
+            }
+            
+            document.getElementById('calendar-grid').innerHTML = calendarHTML;
+        }
+
+        function showDayDetails(dateKey, day, month, year) {
+            const dayData = completionHistory[dateKey];
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            document.getElementById('day-details-header').textContent = `${monthNames[month]} ${day}, ${year}`;
+            
+            if (dayData && dayData.habits) {
+                const habitsHTML = dayData.habits.map(habit => `
+                    <div class="habit-completion-item">
+                        <div class="completion-indicator ${habit.completed ? 'completed' : 'incomplete'}"></div>
+                        <div class="habit-completion-name">${habit.name}</div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('day-details-content').innerHTML = `
+                    <p style="margin-bottom: 16px; color: #6b7280;">Completed ${dayData.completedCount} out of ${dayData.totalHabits} habits</p>
+                    ${habitsHTML}
+                `;
+            } else {
+                document.getElementById('day-details-content').innerHTML = `
+                    <p style="color: #9ca3af; text-align: center; padding: 20px;">No data recorded for this day</p>
+                `;
+            }
+            
+            document.getElementById('day-details-modal').classList.add('active');
+        }
+
+        function closeDayDetailsModal() {
+            document.getElementById('day-details-modal').classList.remove('active');
+        }
+
+        document.getElementById('day-details-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'day-details-modal') {
+                closeDayDetailsModal();
+            }
+        });
+
+        document.getElementById('prev-month').addEventListener('click', () => {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            renderCalendar();
+        });
 
         // ========== METRICS PAGE ==========
         function renderMetricsPage() {
@@ -1009,58 +1659,86 @@
             const maxStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak)) : 0;
             const totalCompleted = habits.reduce((sum, h) => sum + h.streak, 0);
 
+            // Calculate overall completion rate from history
+            const historyKeys = Object.keys(completionHistory);
+            let totalHistoryRate = 0;
+            let validDays = 0;
+            
+            historyKeys.forEach(key => {
+                const dayData = completionHistory[key];
+                if (dayData.totalHabits > 0) {
+                    totalHistoryRate += (dayData.completedCount / dayData.totalHabits) * 100;
+                    validDays++;
+                }
+            });
+            
+            const overallCompletionRate = validDays > 0 ? Math.round(totalHistoryRate / validDays) : completionRate;
+
             document.getElementById('metrics-stats').innerHTML = `
                 <div class="stat-card">
                     <div class="stat-label">Current Streak</div>
                     <div class="stat-number">${maxStreak}</div>
-                    <div class="stat-trend">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                        </svg>
-                        +2 days
-                    </div>
+                    <div class="stat-trend">Best streak</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">Completion Rate</div>
+                    <div class="stat-label">Overall Completion</div>
+                    <div class="stat-number">${overallCompletionRate}%</div>
+                    <div class="stat-trend">All time average</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Today's Progress</div>
                     <div class="stat-number">${completionRate}%</div>
-                    <div class="stat-trend">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                        </svg>
-                        +5% this week
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Best Streak</div>
-                    <div class="stat-number">${maxStreak}</div>
-                    <div class="stat-trend">Personal record</div>
+                    <div class="stat-trend">${completedToday}/${habits.length} habits</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Active Habits</div>
                     <div class="stat-number">${habits.length}</div>
-                    <div class="stat-trend">Optimal range</div>
+                    <div class="stat-trend">Total habits</div>
                 </div>
                 <div class="stat-card large">
-                    <div class="stat-label">Total Completed</div>
+                    <div class="stat-label">Total Completions</div>
                     <div class="stat-number">${totalCompleted}</div>
-                    <div class="stat-trend">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                        </svg>
-                        +23 this month
-                    </div>
+                    <div class="stat-trend">Sum of all streaks</div>
                 </div>
             `;
 
+            // Calculate month performance for each habit
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+
             document.getElementById('habit-performance').innerHTML = `
-                <div class="progress-title">Habit Performance</div>
+                <div class="progress-title">Habit Performance (This Month)</div>
                 ${habits.map(habit => {
-                    const performance = habit.streak > 0 ? Math.min(100, habit.streak * 8) : 0;
+                    // Count how many days this month the habit was completed
+                    let completedDays = 0;
+                    let totalDays = 0;
+
+                    // Get all days in current month
+                    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                    
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        const dateKey = getDateKey(currentYear, currentMonth, day);
+                        const dayData = completionHistory[dateKey];
+                        
+                        if (dayData && dayData.habits) {
+                            const habitData = dayData.habits.find(h => h.name === habit.name);
+                            if (habitData) {
+                                totalDays++;
+                                if (habitData.completed) {
+                                    completedDays++;
+                                }
+                            }
+                        }
+                    }
+
+                    const performance = totalDays > 0 ? Math.round((completedDays / totalDays) * 100) : 0;
+                    
                     return `
                         <div class="progress-item">
                             <div class="progress-header">
                                 <div class="progress-name">${habit.name}</div>
-                                <div class="progress-percentage">${performance}%</div>
+                                <div class="progress-percentage">${performance}% (${completedDays}/${totalDays} days)</div>
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: ${performance}%;"></div>
@@ -1072,21 +1750,42 @@
         }
 
         // ========== PROJECTS PAGE ==========
+        let currentEditingProjectId = null;
+
         function renderProjectsPage() {
-            document.getElementById('projects-list').innerHTML = projects.map(project => `
+            if (projects.length === 0) {
+                document.getElementById('projects-list').innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: #9ca3af;">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin: 0 auto 16px; opacity: 0.5;">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <p style="font-size: 16px; margin-bottom: 8px;">No projects yet</p>
+                        <p style="font-size: 14px;">Click "Create New Project" to get started</p>
+                    </div>
+                `;
+                return;
+            }
+
+            document.getElementById('projects-list').innerHTML = projects.map(project => {
+                const startDateStr = project.startDate ? new Date(project.startDate).toLocaleDateString() : 'Not set';
+                const endDateStr = project.endDate ? new Date(project.endDate).toLocaleDateString() : 'Ongoing';
+                const timeStr = project.time ? `🕐 ${project.time}` : '';
+                
+                return `
                 <div class="project-card">
                     <div class="project-header">
                         <div>
                             <div class="project-title">${project.name}</div>
-                            <div class="project-date">${project.startDate}</div>
+                            <div class="project-date">Started: ${startDateStr} • Ends: ${endDateStr}</div>
+                            ${timeStr ? `<div class="project-date">${timeStr}</div>` : ''}
                         </div>
                         <span class="project-status status-${project.status}">${project.status.charAt(0).toUpperCase() + project.status.slice(1)}</span>
                     </div>
                     
-                    <div class="project-description">${project.description}</div>
+                    <div class="project-description">${project.description || 'No description'}</div>
 
                     <div class="project-habits">
-                        ${project.habits.map(h => `<span class="habit-tag">${h}</span>`).join('')}
+                        ${project.habits.length > 0 ? project.habits.map(h => `<span class="habit-tag">${h}</span>`).join('') : '<span style="color: #9ca3af; font-size: 14px;">No tasks yet</span>'}
                     </div>
 
                     <div class="project-progress">
@@ -1100,66 +1799,188 @@
                     </div>
 
                     <div class="project-actions">
-                        <button class="action-btn view-btn" onclick="viewProject(${project.id})">View Details</button>
-                        <button class="action-btn edit-btn" onclick="editProject(${project.id})">${project.status === 'completed' ? 'Archive' : 'Edit'}</button>
+                        <button class="action-btn view-btn" onclick="viewProject(${project.id})">View</button>
+                        <button class="action-btn edit-btn-project" onclick="editProject(${project.id})">Edit</button>
+                        <button class="action-btn delete-btn-project" onclick="deleteProject(${project.id})">Delete</button>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
+        }
+
+        function openEditProjectModal(project) {
+            currentEditingProjectId = project.id;
+            
+            document.getElementById('edit-project-name').value = project.name;
+            document.getElementById('edit-project-description').value = project.description;
+            document.getElementById('edit-project-start-date').value = project.startDate || '';
+            document.getElementById('edit-project-end-date').value = project.endDate || '';
+            document.getElementById('edit-project-time').value = project.time || '';
+            document.getElementById('edit-project-status').value = project.status;
+            
+            renderProjectTasks(project.habits);
+            
+            document.getElementById('edit-project-modal').classList.add('active');
+        }
+
+        function closeEditProjectModal() {
+            // If we're closing without a name, it might be a new project being cancelled
+            const project = projects.find(p => p.id === currentEditingProjectId);
+            if (project && !project.name.trim()) {
+                // Remove incomplete new project
+                projects = projects.filter(p => p.id !== currentEditingProjectId);
+            }
+            
+            document.getElementById('edit-project-modal').classList.remove('active');
+            currentEditingProjectId = null;
+            renderProjectsPage();
+        }
+
+        function renderProjectTasks(tasks) {
+            const tasksList = document.getElementById('project-tasks-list');
+            if (tasks.length === 0) {
+                tasksList.innerHTML = '<p style="color: #9ca3af; font-size: 14px; padding: 10px 0;">No tasks yet. Click "Add Task" to create one.</p>';
+            } else {
+                tasksList.innerHTML = tasks.map((task, index) => `
+                    <div class="habit-item">
+                        <input type="text" class="form-input" value="${task}" onchange="updateProjectTask(${index}, this.value)" placeholder="Enter task name">
+                        <button class="delete-btn" onclick="removeProjectTask(${index})">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        let tempProjectTasks = [];
+
+        function addProjectTask() {
+            const project = projects.find(p => p.id === currentEditingProjectId);
+            if (project) {
+                project.habits.push('New Task');
+                renderProjectTasks(project.habits);
+            }
+        }
+
+        function updateProjectTask(index, value) {
+            const project = projects.find(p => p.id === currentEditingProjectId);
+            if (project) {
+                project.habits[index] = value;
+            }
+        }
+
+        function removeProjectTask(index) {
+            const project = projects.find(p => p.id === currentEditingProjectId);
+            if (project) {
+                project.habits.splice(index, 1);
+                renderProjectTasks(project.habits);
+            }
+        }
+
+        function saveProjectEdit() {
+            const project = projects.find(p => p.id === currentEditingProjectId);
+            if (!project) return;
+            
+            const name = document.getElementById('edit-project-name').value.trim();
+            if (!name) {
+                alert('Please enter a project name');
+                return;
+            }
+            
+            project.name = name;
+            project.description = document.getElementById('edit-project-description').value.trim();
+            project.startDate = document.getElementById('edit-project-start-date').value;
+            project.endDate = document.getElementById('edit-project-end-date').value;
+            project.time = document.getElementById('edit-project-time').value;
+            project.status = document.getElementById('edit-project-status').value;
+            
+            // Filter out empty tasks
+            project.habits = project.habits.filter(h => h.trim() !== '');
+            
+            // Don't close, just clean up the ID
+            document.getElementById('edit-project-modal').classList.remove('active');
+            currentEditingProjectId = null;
+            renderProjectsPage();
         }
 
         function addNewProject() {
-            const name = prompt('Enter project name:');
-            if (name && name.trim()) {
-                const description = prompt('Enter project description:');
-                projects.push({
-                    id: projectIdCounter++,
-                    name: name.trim(),
-                    status: 'active',
-                    startDate: 'Started ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                    description: description || 'No description',
-                    habits: [],
-                    progress: 0
-                });
-                renderProjectsPage();
-            }
+            // Create temporary project for editing
+            const newProject = {
+                id: projectIdCounter++,
+                name: '',
+                status: 'active',
+                startDate: new Date().toISOString().split('T')[0],
+                endDate: '',
+                time: '',
+                description: '',
+                habits: [],
+                progress: 0
+            };
+            
+            // Set as editing and open modal
+            currentEditingProjectId = newProject.id;
+            projects.push(newProject);
+            
+            document.getElementById('edit-project-name').value = '';
+            document.getElementById('edit-project-description').value = '';
+            document.getElementById('edit-project-start-date').value = newProject.startDate;
+            document.getElementById('edit-project-end-date').value = '';
+            document.getElementById('edit-project-time').value = '';
+            document.getElementById('edit-project-status').value = 'active';
+            
+            renderProjectTasks([]);
+            
+            document.getElementById('edit-project-modal').classList.add('active');
         }
 
         function viewProject(id) {
             const project = projects.find(p => p.id === id);
             if (project) {
-                alert(`Project: ${project.name}\n\nStatus: ${project.status}\nProgress: ${project.progress}%\n\n${project.description}`);
+                const startStr = project.startDate ? new Date(project.startDate).toLocaleDateString() : 'Not set';
+                const endStr = project.endDate ? new Date(project.endDate).toLocaleDateString() : 'Ongoing';
+                const timeStr = project.time ? `Time: ${project.time}` : '';
+                
+                alert(`Project: ${project.name}\n\nStatus: ${project.status}\nStart: ${startStr}\nEnd: ${endStr}\n${timeStr}\nProgress: ${project.progress}%\n\n${project.description}\n\nTasks:\n${project.habits.join('\n')}`);
             }
         }
 
         function editProject(id) {
             const project = projects.find(p => p.id === id);
             if (project) {
-                if (project.status === 'completed') {
-                    if (confirm('Archive this project?')) {
-                        projects = projects.filter(p => p.id !== id);
-                        renderProjectsPage();
-                    }
-                } else {
-                    const newName = prompt('Edit project name:', project.name);
-                    if (newName && newName.trim()) {
-                        project.name = newName.trim();
-                        renderProjectsPage();
-                    }
-                }
+                openEditProjectModal(project);
+            }
+        }
+
+        function deleteProject(id) {
+            const project = projects.find(p => p.id === id);
+            if (project && confirm(`Are you sure you want to delete "${project.name}"?\n\nThis action cannot be undone.`)) {
+                projects = projects.filter(p => p.id !== id);
+                renderProjectsPage();
             }
         }
 
         document.getElementById('add-project-btn').addEventListener('click', addNewProject);
 
+        document.getElementById('edit-project-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'edit-project-modal') {
+                closeEditProjectModal();
+            }
+        });
+
         // ========== RENDER ALL ==========
         function renderAll() {
             renderHomePage();
             renderHabitsPage();
+            renderCalendar();
             renderMetricsPage();
             renderProjectsPage();
         }
 
         // ========== INITIALIZE ==========
+        updateCompletionHistory();
         renderAll();
     </script>
 </body>
