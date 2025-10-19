@@ -125,6 +125,12 @@
             border-radius: 50%;
             border: 2px solid #d1d5db;
             background: white;
+            cursor: pointer;
+        }
+
+        .habit-checkbox.checked {
+            background: #22c55e;
+            border-color: #22c55e;
         }
 
         .habit-text {
@@ -153,6 +159,11 @@
 
         .add-habit-btn:active, .add-project-btn:active {
             transform: scale(0.98);
+        }
+
+        .habits-list {
+            display: flex;
+            flex-direction: column;
         }
 
         .habit-card {
@@ -433,6 +444,11 @@
         }
 
         /* Projects Page Styles */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+        }
+
         .project-card {
             background: white;
             border-radius: 12px;
@@ -497,6 +513,15 @@
             border-radius: 6px;
             font-size: 12px;
             color: #374151;
+        }
+
+        .project-progress {
+            margin-bottom: 12px;
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: #6b7280;
         }
 
         .project-actions {
@@ -598,7 +623,7 @@
                 <p class="subtitle">Track your progress and build lasting habits</p>
             </div>
 
-            <div class="quick-stats">
+            <div class="quick-stats" id="home-stats">
                 <div class="stat-card">
                     <div class="stat-number">5</div>
                     <div class="stat-label">Active Habits</div>
@@ -619,18 +644,7 @@
 
             <div class="today-section">
                 <h2 class="section-title">Today's Habits</h2>
-                <div class="habit-item">
-                    <div class="habit-checkbox"></div>
-                    <div class="habit-text">Morning meditation</div>
-                </div>
-                <div class="habit-item">
-                    <div class="habit-checkbox"></div>
-                    <div class="habit-text">Drink 8 glasses of water</div>
-                </div>
-                <div class="habit-item">
-                    <div class="habit-checkbox"></div>
-                    <div class="habit-text">Read for 20 minutes</div>
-                </div>
+                <div id="today-habits-list"></div>
             </div>
         </div>
 
@@ -641,7 +655,7 @@
                 <p class="subtitle">Build and track your daily routines</p>
             </div>
 
-            <button class="add-habit-btn">
+            <button class="add-habit-btn" id="add-habit-btn">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -649,59 +663,7 @@
                 Add New Habit
             </button>
 
-            <div class="habit-card">
-                <div class="check-btn">
-                    <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                </div>
-                <div class="habit-info">
-                    <div class="habit-name">Morning meditation</div>
-                    <div class="streak-info">🔥 12 day streak</div>
-                </div>
-                <button class="delete-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="3 6 5 6 21 6"></polyline>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="habit-card completed">
-                <div class="check-btn">
-                    <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                </div>
-                <div class="habit-info">
-                    <div class="habit-name">Drink 8 glasses of water</div>
-                    <div class="streak-info">🔥 7 day streak</div>
-                </div>
-                <button class="delete-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="3 6 5 6 21 6"></polyline>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="habit-card">
-                <div class="check-btn">
-                    <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                </div>
-                <div class="habit-info">
-                    <div class="habit-name">Read for 20 minutes</div>
-                    <div class="streak-info">🔥 5 day streak</div>
-                </div>
-                <button class="delete-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="3 6 5 6 21 6"></polyline>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    </svg>
-                </button>
-            </div>
+            <div class="habits-list" id="habits-list"></div>
         </div>
 
         <!-- CALENDAR PAGE -->
@@ -803,101 +765,14 @@
                 <p class="subtitle">Visualize your habit progress</p>
             </div>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Current Streak</div>
-                    <div class="stat-number">12</div>
-                    <div class="stat-trend">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                        </svg>
-                        +2 days
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-label">Completion Rate</div>
-                    <div class="stat-number">85%</div>
-                    <div class="stat-trend">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                        </svg>
-                        +5% this week
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-label">Best Streak</div>
-                    <div class="stat-number">28</div>
-                    <div class="stat-trend">Personal record</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-label">Active Habits</div>
-                    <div class="stat-number">5</div>
-                    <div class="stat-trend">Optimal range</div>
-                </div>
-
-                <div class="stat-card large">
-                    <div class="stat-label">Total Completed</div>
-                    <div class="stat-number">142</div>
-                    <div class="stat-trend">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                        </svg>
-                        +23 this month
-                    </div>
-                </div>
-            </div>
+            <div class="stats-grid" id="metrics-stats"></div>
 
             <div class="chart-card">
                 <div class="chart-title">Weekly Progress</div>
                 <div class="chart-placeholder">Chart visualization would appear here</div>
             </div>
 
-            <div class="progress-list">
-                <div class="progress-title">Habit Performance</div>
-                
-                <div class="progress-item">
-                    <div class="progress-header">
-                        <div class="progress-name">Morning meditation</div>
-                        <div class="progress-percentage">92%</div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 92%;"></div>
-                    </div>
-                </div>
-
-                <div class="progress-item">
-                    <div class="progress-header">
-                        <div class="progress-name">Drink 8 glasses of water</div>
-                        <div class="progress-percentage">88%</div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 88%;"></div>
-                    </div>
-                </div>
-
-                <div class="progress-item">
-                    <div class="progress-header">
-                        <div class="progress-name">Read for 20 minutes</div>
-                        <div class="progress-percentage">75%</div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%;"></div>
-                    </div>
-                </div>
-
-                <div class="progress-item">
-                    <div class="progress-header">
-                        <div class="progress-name">Exercise</div>
-                        <div class="progress-percentage">80%</div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 80%;"></div>
-                    </div>
-                </div>
-            </div>
+            <div class="progress-list" id="habit-performance"></div>
         </div>
 
         <!-- PROJECTS PAGE -->
@@ -907,7 +782,7 @@
                 <p class="subtitle">Group habits into meaningful goals</p>
             </div>
 
-            <button class="add-project-btn">
+            <button class="add-project-btn" id="add-project-btn">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -915,110 +790,7 @@
                 Create New Project
             </button>
 
-            <div class="project-card">
-                <div class="project-header">
-                    <div>
-                        <div class="project-title">Health & Wellness</div>
-                        <div class="project-date">Started Oct 1, 2025</div>
-                    </div>
-                    <span class="project-status status-active">Active</span>
-                </div>
-                
-                <div class="project-description">
-                    Focus on building a healthier lifestyle through consistent daily habits
-                </div>
-
-                <div class="project-habits">
-                    <span class="habit-tag">🧘 Morning meditation</span>
-                    <span class="habit-tag">💧 Drink water</span>
-                    <span class="habit-tag">🏃 Exercise</span>
-                </div>
-
-                <div class="project-progress">
-                    <div class="progress-header">
-                        <span class="progress-label">Overall Progress</span>
-                        <span class="progress-percentage">68%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 68%;"></div>
-                    </div>
-                </div>
-
-                <div class="project-actions">
-                    <button class="action-btn view-btn">View Details</button>
-                    <button class="action-btn edit-btn">Edit</button>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div>
-                        <div class="project-title">Learn Spanish</div>
-                        <div class="project-date">Started Sep 15, 2025</div>
-                    </div>
-                    <span class="project-status status-active">Active</span>
-                </div>
-                
-                <div class="project-description">
-                    Achieve conversational fluency through daily practice and immersion
-                </div>
-
-                <div class="project-habits">
-                    <span class="habit-tag">📚 Study vocabulary</span>
-                    <span class="habit-tag">🎧 Listen to podcasts</span>
-                    <span class="habit-tag">✍️ Practice writing</span>
-                </div>
-
-                <div class="project-progress">
-                    <div class="progress-header">
-                        <span class="progress-label">Overall Progress</span>
-                        <span class="progress-percentage">82%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 82%;"></div>
-                    </div>
-                </div>
-
-                <div class="project-actions">
-                    <button class="action-btn view-btn">View Details</button>
-                    <button class="action-btn edit-btn">Edit</button>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <div>
-                        <div class="project-title">Morning Routine</div>
-                        <div class="project-date">Completed Oct 15, 2025</div>
-                    </div>
-                    <span class="project-status status-completed">Completed</span>
-                </div>
-                
-                <div class="project-description">
-                    Establish a consistent morning routine to start each day with intention
-                </div>
-
-                <div class="project-habits">
-                    <span class="habit-tag">☀️ Wake up at 6am</span>
-                    <span class="habit-tag">📖 Read</span>
-                    <span class="habit-tag">📝 Journal</span>
-                </div>
-
-                <div class="project-progress">
-                    <div class="progress-header">
-                        <span class="progress-label">Overall Progress</span>
-                        <span class="progress-percentage">100%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%;"></div>
-                    </div>
-                </div>
-
-                <div class="project-actions">
-                    <button class="action-btn view-btn">View Details</button>
-                    <button class="action-btn edit-btn">Archive</button>
-                </div>
-            </div>
+            <div class="projects-list" id="projects-list"></div>
         </div>
     </div>
 
@@ -1070,27 +842,325 @@
     </nav>
 
     <script>
-        // Navigation functionality
+        // ========== DATA STORAGE (In-Memory) ==========
+        let habits = [
+            { id: 1, name: 'Morning meditation', streak: 12, completed: false },
+            { id: 2, name: 'Drink 8 glasses of water', streak: 7, completed: true },
+            { id: 3, name: 'Read for 20 minutes', streak: 5, completed: false }
+        ];
+
+        let projects = [
+            {
+                id: 1,
+                name: 'Health & Wellness',
+                status: 'active',
+                startDate: 'Oct 1, 2025',
+                description: 'Focus on building a healthier lifestyle through consistent daily habits',
+                habits: ['🧘 Morning meditation', '💧 Drink water', '🏃 Exercise'],
+                progress: 68
+            },
+            {
+                id: 2,
+                name: 'Learn Spanish',
+                status: 'active',
+                startDate: 'Sep 15, 2025',
+                description: 'Achieve conversational fluency through daily practice and immersion',
+                habits: ['📚 Study vocabulary', '🎧 Listen to podcasts', '✍️ Practice writing'],
+                progress: 82
+            },
+            {
+                id: 3,
+                name: 'Morning Routine',
+                status: 'completed',
+                startDate: 'Completed Oct 15, 2025',
+                description: 'Establish a consistent morning routine to start each day with intention',
+                habits: ['☀️ Wake up at 6am', '📖 Read', '📝 Journal'],
+                progress: 100
+            }
+        ];
+
+        let habitIdCounter = 4;
+        let projectIdCounter = 4;
+
+        // ========== NAVIGATION ==========
         const navItems = document.querySelectorAll('.nav-item');
         const pages = document.querySelectorAll('.page');
 
         navItems.forEach(item => {
-            item.addEventListener('click', () => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
                 const targetPage = item.getAttribute('data-page');
                 
-                // Remove active class from all nav items
                 navItems.forEach(nav => nav.classList.remove('active'));
-                
-                // Add active class to clicked nav item
                 item.classList.add('active');
                 
-                // Hide all pages
                 pages.forEach(page => page.classList.remove('active'));
-                
-                // Show target page
                 document.getElementById(targetPage).classList.add('active');
+                
+                renderAll();
             });
         });
+
+        // ========== HOME PAGE ==========
+        function renderHomePage() {
+            const activeHabits = habits.length;
+            const completedToday = habits.filter(h => h.completed).length;
+            const completionRate = habits.length > 0 ? Math.round((completedToday / habits.length) * 100) : 0;
+            const maxStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak)) : 0;
+
+            document.getElementById('home-stats').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${activeHabits}</div>
+                    <div class="stat-label">Active Habits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${maxStreak}</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${completionRate}%</div>
+                    <div class="stat-label">Completion Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${completedToday}</div>
+                    <div class="stat-label">Today's Progress</div>
+                </div>
+            `;
+
+            document.getElementById('today-habits-list').innerHTML = habits.map(habit => `
+                <div class="habit-item" onclick="toggleHabitHome(${habit.id})">
+                    <div class="habit-checkbox ${habit.completed ? 'checked' : ''}"></div>
+                    <div class="habit-text">${habit.name}</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleHabitHome(id) {
+            const habit = habits.find(h => h.id === id);
+            if (habit) {
+                habit.completed = !habit.completed;
+                if (habit.completed) {
+                    habit.streak++;
+                }
+                renderAll();
+            }
+        }
+
+        // ========== HABITS PAGE ==========
+        function renderHabitsPage() {
+            document.getElementById('habits-list').innerHTML = habits.map(habit => `
+                <div class="habit-card ${habit.completed ? 'completed' : ''}">
+                    <div class="check-btn" onclick="toggleHabit(${habit.id})">
+                        <svg class="check-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">${habit.name}</div>
+                        <div class="streak-info">🔥 ${habit.streak} day streak</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteHabit(${habit.id})">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleHabit(id) {
+            const habit = habits.find(h => h.id === id);
+            if (habit) {
+                habit.completed = !habit.completed;
+                if (habit.completed) {
+                    habit.streak++;
+                }
+                renderAll();
+            }
+        }
+
+        function deleteHabit(id) {
+            if (confirm('Are you sure you want to delete this habit?')) {
+                habits = habits.filter(h => h.id !== id);
+                renderAll();
+            }
+        }
+
+        function addNewHabit() {
+            const name = prompt('Enter habit name:');
+            if (name && name.trim()) {
+                habits.push({
+                    id: habitIdCounter++,
+                    name: name.trim(),
+                    streak: 0,
+                    completed: false
+                });
+                renderAll();
+            }
+        }
+
+        document.getElementById('add-habit-btn').addEventListener('click', addNewHabit);
+
+        // ========== METRICS PAGE ==========
+        function renderMetricsPage() {
+            const completedToday = habits.filter(h => h.completed).length;
+            const completionRate = habits.length > 0 ? Math.round((completedToday / habits.length) * 100) : 0;
+            const maxStreak = habits.length > 0 ? Math.max(...habits.map(h => h.streak)) : 0;
+            const totalCompleted = habits.reduce((sum, h) => sum + h.streak, 0);
+
+            document.getElementById('metrics-stats').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">Current Streak</div>
+                    <div class="stat-number">${maxStreak}</div>
+                    <div class="stat-trend">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                        +2 days
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Completion Rate</div>
+                    <div class="stat-number">${completionRate}%</div>
+                    <div class="stat-trend">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                        +5% this week
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Best Streak</div>
+                    <div class="stat-number">${maxStreak}</div>
+                    <div class="stat-trend">Personal record</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Habits</div>
+                    <div class="stat-number">${habits.length}</div>
+                    <div class="stat-trend">Optimal range</div>
+                </div>
+                <div class="stat-card large">
+                    <div class="stat-label">Total Completed</div>
+                    <div class="stat-number">${totalCompleted}</div>
+                    <div class="stat-trend">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                        +23 this month
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('habit-performance').innerHTML = `
+                <div class="progress-title">Habit Performance</div>
+                ${habits.map(habit => {
+                    const performance = habit.streak > 0 ? Math.min(100, habit.streak * 8) : 0;
+                    return `
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <div class="progress-name">${habit.name}</div>
+                                <div class="progress-percentage">${performance}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${performance}%;"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            `;
+        }
+
+        // ========== PROJECTS PAGE ==========
+        function renderProjectsPage() {
+            document.getElementById('projects-list').innerHTML = projects.map(project => `
+                <div class="project-card">
+                    <div class="project-header">
+                        <div>
+                            <div class="project-title">${project.name}</div>
+                            <div class="project-date">${project.startDate}</div>
+                        </div>
+                        <span class="project-status status-${project.status}">${project.status.charAt(0).toUpperCase() + project.status.slice(1)}</span>
+                    </div>
+                    
+                    <div class="project-description">${project.description}</div>
+
+                    <div class="project-habits">
+                        ${project.habits.map(h => `<span class="habit-tag">${h}</span>`).join('')}
+                    </div>
+
+                    <div class="project-progress">
+                        <div class="progress-header">
+                            <span class="progress-label">Overall Progress</span>
+                            <span class="progress-percentage">${project.progress}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${project.progress}%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="project-actions">
+                        <button class="action-btn view-btn" onclick="viewProject(${project.id})">View Details</button>
+                        <button class="action-btn edit-btn" onclick="editProject(${project.id})">${project.status === 'completed' ? 'Archive' : 'Edit'}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addNewProject() {
+            const name = prompt('Enter project name:');
+            if (name && name.trim()) {
+                const description = prompt('Enter project description:');
+                projects.push({
+                    id: projectIdCounter++,
+                    name: name.trim(),
+                    status: 'active',
+                    startDate: 'Started ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                    description: description || 'No description',
+                    habits: [],
+                    progress: 0
+                });
+                renderProjectsPage();
+            }
+        }
+
+        function viewProject(id) {
+            const project = projects.find(p => p.id === id);
+            if (project) {
+                alert(`Project: ${project.name}\n\nStatus: ${project.status}\nProgress: ${project.progress}%\n\n${project.description}`);
+            }
+        }
+
+        function editProject(id) {
+            const project = projects.find(p => p.id === id);
+            if (project) {
+                if (project.status === 'completed') {
+                    if (confirm('Archive this project?')) {
+                        projects = projects.filter(p => p.id !== id);
+                        renderProjectsPage();
+                    }
+                } else {
+                    const newName = prompt('Edit project name:', project.name);
+                    if (newName && newName.trim()) {
+                        project.name = newName.trim();
+                        renderProjectsPage();
+                    }
+                }
+            }
+        }
+
+        document.getElementById('add-project-btn').addEventListener('click', addNewProject);
+
+        // ========== RENDER ALL ==========
+        function renderAll() {
+            renderHomePage();
+            renderHabitsPage();
+            renderMetricsPage();
+            renderProjectsPage();
+        }
+
+        // ========== INITIALIZE ==========
+        renderAll();
     </script>
 </body>
 </html>
